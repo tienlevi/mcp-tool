@@ -51,6 +51,8 @@ async function ConnectMCPServer() {
 
   // Start receiving messages on stdin and sending messages on stdout
   const transport = new StdioServerTransport();
+  console.log("Running");
+
   return await server.connect(transport);
 }
 

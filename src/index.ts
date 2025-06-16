@@ -1,5 +1,5 @@
 import express from "express";
-import ConnectMCPServer from "./server";
+import ConnectMCPServer from "./server.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
