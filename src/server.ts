@@ -1,0 +1,57 @@
+import {
+  McpServer,
+  ResourceTemplate,
+} from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+
+// Create an MCP server
+const server = new McpServer({
+  name: "Demo",
+  version: "1.0.0",
+});
+
+// Add an addition tool
+async function ConnectMCPServer() {
+  server.tool(
+    "TypescriptSDK",
+    { a: z.number(), b: z.number() },
+    async ({ a, b }) => ({
+      tools: [
+        {
+          name: "add_numbers",
+          description: "Add two numbers",
+          inputSchema: {
+            type: "object",
+            properties: {
+              a: { type: "number", description: "First number" },
+              b: { type: "number", description: "Second number" },
+            },
+            required: ["a", "b"],
+          },
+        },
+      ],
+      content: [{ type: "text", text: String(a + b) }],
+    })
+  );
+
+  // Add a dynamic greeting resource
+  server.resource(
+    "greeting",
+    new ResourceTemplate("greeting://{name}", { list: undefined }),
+    async (uri, { name }) => ({
+      contents: [
+        {
+          uri: uri.href,
+          text: `Hello, ${name}!`,
+        },
+      ],
+    })
+  );
+
+  // Start receiving messages on stdin and sending messages on stdout
+  const transport = new StdioServerTransport();
+  return await server.connect(transport);
+}
+
+export default ConnectMCPServer;
