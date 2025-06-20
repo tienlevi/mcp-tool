@@ -12,9 +12,9 @@ const server = new McpServer({
 });
 
 // Add an addition tool
-async function ConnectMCPServer() {
+const ConnectMCPServer = async () => {
   server.tool(
-    "TypescriptSDK",
+    "Calculate",
     { a: z.number(), b: z.number() },
     async ({ a, b }) => ({
       tools: [
@@ -54,6 +54,6 @@ async function ConnectMCPServer() {
   console.log("Running");
 
   return await server.connect(transport);
-}
+};
 
 export default ConnectMCPServer;

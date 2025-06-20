@@ -8,7 +8,7 @@ app.use(express.json());
 ConnectMCPServer();
 
 app.get("/", (_, res) => {
-  res.send("Hello, TypeScript Express!");
+  res.send("Hello, JavaScript Express!");
 });
 
 app.listen(port, () => {
