@@ -12,11 +12,11 @@ const server = new McpServer({
 });
 
 // Add an addition tool
-const ConnectMCPServer = async () => {
+const ConnectMCPServer = async (): Promise<void> => {
   server.tool(
     "Calculate",
     { a: z.number(), b: z.number() },
-    async ({ a, b }) => ({
+    async ({ a, b }: { a: number; b: number }) => ({
       tools: [
         {
           name: "add_numbers",
@@ -39,11 +39,11 @@ const ConnectMCPServer = async () => {
   server.resource(
     "greeting",
     new ResourceTemplate("greeting://{name}", { list: undefined }),
-    async (uri, { name }) => ({
+    async (uri, variables) => ({
       contents: [
         {
           uri: uri.href,
-          text: `Hello, ${name}!`,
+          text: `Hello, ${variables.name}!`,
         },
       ],
     })
@@ -53,7 +53,7 @@ const ConnectMCPServer = async () => {
   const transport = new StdioServerTransport();
   console.log("Running");
 
-  return await server.connect(transport);
+  await server.connect(transport);
 };
 
 export default ConnectMCPServer;

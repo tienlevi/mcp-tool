@@ -2,11 +2,12 @@
   "name": "expressjs-mcp",
   "version": "1.0.0",
   "type": "module",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "build": "echo 'JavaScript project - no build needed!' && echo 'Files are ready to run directly.'"
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch src --ext ts --exec \"npm run build && node dist/index.js\"",
+    "build": "tsc",
+    "build:watch": "tsc --watch"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.5",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.3.3"
   }
 }
