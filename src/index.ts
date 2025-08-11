@@ -7,6 +7,7 @@ import { z } from "zod";
 import placeholderTool from "./tools/placeholder.js";
 import { getMCP } from "./controllers/mcp.js";
 import weatherTool from "./tools/weather.js";
+import countryTool from "./tools/country.js";
 
 const app = express();
 const port: number = 8000;
@@ -21,6 +22,13 @@ server.tool(
     query: z.string(),
   },
   weatherTool
+);
+server.tool(
+  "Country",
+  {
+    name: z.string(),
+  },
+  countryTool
 );
 
 const transport = new StdioServerTransport();

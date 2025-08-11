@@ -25,7 +25,7 @@ const weatherTool = async ({ query }: { query: string }): Promise<any> => {
       content: [
         {
           type: "text",
-          text: `Temperature in ${data.name}: ${data.main.temp}°C`,
+          text: `Temperature in ${data.name}: ${data.main.temp - 272.15}°C`,
         },
       ],
     };
