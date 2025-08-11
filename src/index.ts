@@ -5,8 +5,8 @@ import calculateTool from "./tools/calculate.js";
 import { calculateValidate } from "./validations/index.js";
 import { z } from "zod";
 import placeholderTool from "./tools/placeholder.js";
-import countryTool from "./tools/country.js";
 import { getMCP, searchCountry } from "./controllers/mcp.js";
+import weatherTool from "./tools/weather.js";
 
 const app = express();
 const port: number = 8000;
@@ -15,7 +15,13 @@ app.use(express.json());
 
 server.tool("Calculate", calculateValidate, calculateTool);
 server.tool("Placeholder", { id: z.number() }, placeholderTool);
-server.tool("Country", { name: z.string() }, countryTool);
+server.tool(
+  "Weather",
+  {
+    query: z.string(),
+  },
+  weatherTool
+);
 
 const transport = new StdioServerTransport();
 
