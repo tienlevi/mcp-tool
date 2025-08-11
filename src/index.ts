@@ -6,6 +6,7 @@ import { calculateValidate } from "./validations/index.js";
 import { z } from "zod";
 import placeholderTool from "./tools/placeholder.js";
 import countryTool from "./tools/country.js";
+import { getMCP, searchCountry } from "./controllers/mcp.js";
 
 const app = express();
 const port: number = 8000;
@@ -20,7 +21,14 @@ const transport = new StdioServerTransport();
 
 await server.connect(transport);
 
-app.get("/", async (_: Request, res: Response) => {});
+app.get("/", async (_: Request, res: Response) => {
+  return res.json({ message: "Hello world" });
+});
+
+app.post("/mcp", getMCP);
+
+// Country routes
+app.get("/api/countries/:name", searchCountry);
 
 app.listen(port, (): void => {
   console.log(`Server running on port ${port}`);
