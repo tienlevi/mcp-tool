@@ -5,7 +5,7 @@ import calculateTool from "./tools/calculate.js";
 import { calculateValidate } from "./validations/index.js";
 import { z } from "zod";
 import placeholderTool from "./tools/placeholder.js";
-import { getMCP, searchCountry } from "./controllers/mcp.js";
+import { getMCP } from "./controllers/mcp.js";
 import weatherTool from "./tools/weather.js";
 
 const app = express();
@@ -32,9 +32,6 @@ app.get("/", async (_: Request, res: Response) => {
 });
 
 app.post("/mcp", getMCP);
-
-// Country routes
-app.get("/api/countries/:name", searchCountry);
 
 app.listen(port, (): void => {
   console.log(`Server running on port ${port}`);
